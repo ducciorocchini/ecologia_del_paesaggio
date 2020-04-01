@@ -72,7 +72,7 @@ points(covids)
 install.packages("rgdal")
 library(rgdal)
 
-coastlines <- readOGR("ne_10m_coastline.shp)
+coastlines <- readOGR("ne_10m_coastline.shp")
 
 plot(coastlines, add=T)
 
