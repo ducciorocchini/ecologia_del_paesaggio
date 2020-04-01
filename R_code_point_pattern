@@ -51,3 +51,65 @@ d <- density(covids)
 plot(d)
 points(covids)
 
+# save the .RData
+
+setwd("~/lab")
+load("point_pattern.RData")
+
+ls()
+
+plot(d)
+# palette
+cl <- colorRampPalette(c('yellow','orange','red')) (100)
+plot(d, col=cl)
+
+# Exercise
+# plot della mappa della densità dal verde al blu
+
+points(covids)
+
+
+install.packages("rgdal")
+library(rgdal)
+
+coastlines <- readOGR("ne_10m_coastline.shp)
+
+plot(coastlines, add=T)
+
+# Exercise: plot della mappa di densità con una nuova colorazione, e aggiunta delle coastlines
+cl <- colorRampPalette(c('blue','light blue','light green','yellow')) (100)
+plot(d, col=cl)
+plot(coastlines, add=T, col="yellow")
+
+cl2 <- colorRampPalette(c('red','orange','yellow','green', 'blue')) (800)
+plot(d, col=cl2)
+plot(coastlines, add=T)
+
+cl3 <- colorRampPalette(c('green', 'violet', 'blue')) (200)
+plot(d, col=cl3)
+plot(coastlines, add=T)
+
+cl4 <- colorRampPalette(c('violet','yellow','green'))(100)
+plot(d, col=cl4)
+plot(coastlines, add=T)
+
+cl5 <- colorRampPalette(c('darkcyan', 'purple', 'red')) (200) 
+plot(d, col=cl5)
+plot(coastlines, add=T)
+
+cl6 <- colorRampPalette(c('darkcyan', 'purple', 'red')) (200) 
+plot(d, col=cl6)
+plot(coastlines, add=T)
+
+cl7<-colorRampPalette(c('white','blue','green','red','orange','yellow')) (150)
+plot(d, col=cl7)
+plot(coastlines, add=T)
+
+
+
+
+
+
+
+
+
