@@ -1,229 +1,229 @@
-# codice per analisi dei pattern legati ai punti
+  # codice per analisi dei pattern legati ai punti
 
-install.packages("ggplot2")
-install.packages("spatstat")
+  install.packages("ggplot2")
+  install.packages("spatstat")
 
-library(ggplot2) # comando alternativo require(ggplot2)
-library(spatstat)
+  library(ggplot2) # comando alternativo require(ggplot2)
+  library(spatstat)
 
-setwd("~/lab")
-# setwd("/Users/utente/lab") #mac
-# setwd("C:/lab/") # windows
+  setwd("~/lab")
+  # setwd("/Users/utente/lab") #mac
+  # setwd("C:/lab/") # windows
 
-# importare dati
-covid <- read.table("covid_agg.csv", head=T)
+  # importare dati
+  covid <- read.table("covid_agg.csv", head=T)
 
-head(covid)
+  head(covid)
 
-plot(covid$country,covid$cases) 
-# attach(covid) 
-# plot(country,cases)
+  plot(covid$country,covid$cases) 
+  # attach(covid) 
+  # plot(country,cases)
 
-plot(covid$country,covid$cases,las=0) # parallel labels
-plot(covid$country,covid$cases,las=1) # horizontal labels
-plot(covid$country,covid$cases,las=2) # perpendicular labels
-plot(covid$country,covid$cases,las=3) # vertical labels
+  plot(covid$country,covid$cases,las=0) # parallel labels
+  plot(covid$country,covid$cases,las=1) # horizontal labels
+  plot(covid$country,covid$cases,las=2) # perpendicular labels
+  plot(covid$country,covid$cases,las=3) # vertical labels
 
-plot(covid$country,covid$cases,las=3,cex.lab=0.5, cex.axis=0.5) # vertical labels
+  plot(covid$country,covid$cases,las=3,cex.lab=0.5, cex.axis=0.5) # vertical labels
 
 
-# ggplot2
-data(mpg)
-head(mpg)
+  # ggplot2
+  data(mpg)
+  head(mpg)
 
-# data
-# aes
-# tipo di geometria
-ggplot(mpg,aes(x=displ,y=hwy)) + geom_point()
-ggplot(mpg,aes(x=displ,y=hwy)) + geom_line()
-ggplot(mpg,aes(x=displ,y=hwy)) + geom_polygon()
+  # data
+  # aes
+  # tipo di geometria
+  ggplot(mpg,aes(x=displ,y=hwy)) + geom_point()
+  ggplot(mpg,aes(x=displ,y=hwy)) + geom_line()
+  ggplot(mpg,aes(x=displ,y=hwy)) + geom_polygon()
 
-# ggplot di covid
-ggplot(covid,aes(x=lon,y=lat,size=cases)) + geom_point()
+  # ggplot di covid
+  ggplot(covid,aes(x=lon,y=lat,size=cases)) + geom_point()
 
-# density
-# create dataset for spatstat
-attach(covid)
-covids <- ppp(lon, lat, c(-180,180), c(-90,90))
+  # density
+  # create dataset for spatstat
+  attach(covid)
+  covids <- ppp(lon, lat, c(-180,180), c(-90,90))
 
-d <- density(covids)
+  d <- density(covids)
 
-plot(d)
-points(covids)
+  plot(d)
+  points(covids)
 
-# save the .RData
+  # save the .RData
 
-setwd("~/lab")
-load("point_pattern.RData")
+  setwd("~/lab")
+  load("point_pattern.RData")
 
-ls()
+  ls()
 
-plot(d)
-# palette
-cl <- colorRampPalette(c('yellow','orange','red')) (100)
-plot(d, col=cl)
+  plot(d)
+  # palette
+  cl <- colorRampPalette(c('yellow','orange','red')) (100)
+  plot(d, col=cl)
 
-# Exercise
-# plot della mappa della densità dal verde al blu
+  # Exercise
+  # plot della mappa della densità dal verde al blu
 
-points(covids)
+  points(covids)
 
 
-install.packages("rgdal")
-library(rgdal)
+  install.packages("rgdal")
+  library(rgdal)
 
-coastlines <- readOGR("ne_10m_coastline.shp")
+  coastlines <- readOGR("ne_10m_coastline.shp")
 
-plot(coastlines, add=T)
+  plot(coastlines, add=T)
 
-# Exercise: plot della mappa di densità con una nuova colorazione, e aggiunta delle coastlines
-cl <- colorRampPalette(c('blue','light blue','light green','yellow')) (100)
-plot(d, col=cl)
-plot(coastlines, add=T, col="yellow")
+  # Exercise: plot della mappa di densità con una nuova colorazione, e aggiunta delle coastlines
+  cl <- colorRampPalette(c('blue','light blue','light green','yellow')) (100)
+  plot(d, col=cl)
+  plot(coastlines, add=T, col="yellow")
 
-cl2 <- colorRampPalette(c('red','orange','yellow','green', 'blue')) (800)
-plot(d, col=cl2)
-plot(coastlines, add=T)
+  cl2 <- colorRampPalette(c('red','orange','yellow','green', 'blue')) (800)
+  plot(d, col=cl2)
+  plot(coastlines, add=T)
 
-cl3 <- colorRampPalette(c('green', 'violet', 'blue')) (200)
-plot(d, col=cl3)
-plot(coastlines, add=T)
+  cl3 <- colorRampPalette(c('green', 'violet', 'blue')) (200)
+  plot(d, col=cl3)
+  plot(coastlines, add=T)
 
-cl4 <- colorRampPalette(c('violet','yellow','green'))(100)
-plot(d, col=cl4)
-plot(coastlines, add=T)
+  cl4 <- colorRampPalette(c('violet','yellow','green'))(100)
+  plot(d, col=cl4)
+  plot(coastlines, add=T)
 
-cl5 <- colorRampPalette(c('darkcyan', 'purple', 'red')) (200) 
-plot(d, col=cl5)
-plot(coastlines, add=T)
+  cl5 <- colorRampPalette(c('darkcyan', 'purple', 'red')) (200) 
+  plot(d, col=cl5)
+  plot(coastlines, add=T)
 
-cl6 <- colorRampPalette(c('darkcyan', 'purple', 'red')) (200) 
-plot(d, col=cl6)
-plot(coastlines, add=T)
+  cl6 <- colorRampPalette(c('darkcyan', 'purple', 'red')) (200) 
+  plot(d, col=cl6)
+  plot(coastlines, add=T)
 
-cl7<-colorRampPalette(c('white','blue','green','red','orange','yellow')) (150)
-plot(d, col=cl7)
-plot(coastlines, add=T)
+  cl7<-colorRampPalette(c('white','blue','green','red','orange','yellow')) (150)
+  plot(d, col=cl7)
+  plot(coastlines, add=T)
 
 
-### Exercise: caricare il workspace point_pattern.RData (load("...")) e crare un garfico della mappa di densità
+  ### Exercise: caricare il workspace point_pattern.RData (load("...")) e crare un garfico della mappa di densità
 
-library(spatstat)
-library(rgdal) # for the coastlines
+  library(spatstat)
+  library(rgdal) # for the coastlines
 
-setwd("~/lab/")
-load("point_pattern.RData")
-ls()
+  setwd("~/lab/")
+  load("point_pattern.RData")
+  ls()
 
-cl5 <- colorRampPalette(c('cyan', 'purple', 'red')) (200) 
-plot(d, col=cl5, main="
-")
-points(covids)
-coastlines <- readOGR("ne_10m_coastline.shp")
-plot(coastlines, add=T)
+  cl5 <- colorRampPalette(c('cyan', 'purple', 'red')) (200) 
+  plot(d, col=cl5, main="
+  ")
+  points(covids)
+  coastlines <- readOGR("ne_10m_coastline.shp")
+  plot(coastlines, add=T)
 
-# interpolazione
+  # interpolazione
 
-head(covid)
-marks(covids) <- covid$cases
-s <- Smooth(covids)
-plot(s)
+  head(covid)
+  marks(covids) <- covid$cases
+  s <- Smooth(covids)
+  plot(s)
 
-# Exercise: plot(s) with points and coastlines
-cl5 <- colorRampPalette(c('cyan', 'purple', 'red')) (200) 
-plot(s, col=cl5, main="estimate of cases")
-points(covids)
-coastlines <- readOGR("ne_10m_coastline.shp")
-plot(coastlines, add=T)
+  # Exercise: plot(s) with points and coastlines
+  cl5 <- colorRampPalette(c('cyan', 'purple', 'red')) (200) 
+  plot(s, col=cl5, main="estimate of cases")
+  points(covids)
+  coastlines <- readOGR("ne_10m_coastline.shp")
+  plot(coastlines, add=T)
 
-text(covids)
+  text(covids)
 
-##### mappa finale
-par(mfrow=c(2,1))
+  ##### mappa finale
+  par(mfrow=c(2,1))
 
-# densità
-cl5 <- colorRampPalette(c('cyan', 'purple', 'red')) (200) 
-plot(d, col=cl5, main="
-")
-points(covids)
-coastlines <- readOGR("ne_10m_coastline.shp")
-plot(coastlines, add=T)
+  # densità
+  cl5 <- colorRampPalette(c('cyan', 'purple', 'red')) (200) 
+  plot(d, col=cl5, main="
+  ")
+  points(covids)
+  coastlines <- readOGR("ne_10m_coastline.shp")
+  plot(coastlines, add=T)
 
-# interpolazione del numero di casi
-cl5 <- colorRampPalette(c('cyan', 'purple', 'red')) (200) 
-plot(s, col=cl5, main="estimate of cases")
-points(covids)
-coastlines <- readOGR("ne_10m_coastline.shp")
-plot(coastlines, add=T)
+  # interpolazione del numero di casi
+  cl5 <- colorRampPalette(c('cyan', 'purple', 'red')) (200) 
+  plot(s, col=cl5, main="estimate of cases")
+  points(covids)
+  coastlines <- readOGR("ne_10m_coastline.shp")
+  plot(coastlines, add=T)
 
-###### San Marino 
-# setwd("~/lab/")
-# library(spatstat)
+  ###### San Marino 
+  # setwd("~/lab/")
+  # library(spatstat)
 
-load("Tesi.RData")
-ls()
+  load("Tesi.RData")
+  ls()
 
-head(Tesi)
-attach(Tesi)
+  head(Tesi)
+  attach(Tesi)
 
-summary(Tesi)
+  summary(Tesi)
 
-# x varia da 12.42 a 12.46
-# y varia da 43.91 a 43.94
-# point pattern: x,y,c(xmin,xmax),c(ymin,ymax)
-Tesippp <- ppp(Longitude, Latitude, c(12.41,12.47), c(43.9,43.95))
+  # x varia da 12.42 a 12.46
+  # y varia da 43.91 a 43.94
+  # point pattern: x,y,c(xmin,xmax),c(ymin,ymax)
+  Tesippp <- ppp(Longitude, Latitude, c(12.41,12.47), c(43.9,43.95))
 
-dT <- density(Tesippp)
+  dT <- density(Tesippp)
 
-plot(dT)
-points(Tesippp, col="green")
+  plot(dT)
+  points(Tesippp, col="green")
 
-colors()
+  colors()
 
-######### 
+  ######### 
 
-setwd("~/lab/")
-load("sanmarino.RData")
-library(spatstat)
-ls()
+  setwd("~/lab/")
+  load("sanmarino.RData")
+  library(spatstat)
+  ls()
 
-# dT=density map, Tesi=dataset originale, Tesi_ppp=point pattern
+  # dT=density map, Tesi=dataset originale, Tesi_ppp=point pattern
 
-plot(dT)
-points(Tesippp, col="green")
+  plot(dT)
+  points(Tesippp, col="green")
 
-head(Tesi)
+  head(Tesi)
 
-marks(Tesippp) <- Tesi$Species_richness
-interpol <- Smooth(Tesippp)
-plot(interpol)
-points(Tesippp, col="green")
+  marks(Tesippp) <- Tesi$Species_richness
+  interpol <- Smooth(Tesippp)
+  plot(interpol)
+  points(Tesippp, col="green")
 
-library(rgdal)
-sanmarino <- readOGR("San_Marino.shp")
+  library(rgdal)
+  sanmarino <- readOGR("San_Marino.shp")
 
-plot(sanmarino)
-plot(interpol, add=T)
-points(Tesippp,col="green")
-plot(sanmarino, add=T)
+  plot(sanmarino)
+  plot(interpol, add=T)
+  points(Tesippp,col="green")
+  plot(sanmarino, add=T)
 
-# Exercise: plot multiframe di densità e interpolazione
-par(mfrow=c(2,1))
+  # Exercise: plot multiframe di densità e interpolazione
+  par(mfrow=c(2,1))
 
-plot(dT, main="Density of points")
-points(Tesippp,col="green")
+  plot(dT, main="Density of points")
+  points(Tesippp,col="green")
 
-plot(interpol, main="Estimate of species richness")
-points(Tesippp,col="green")
+  plot(interpol, main="Estimate of species richness")
+  points(Tesippp,col="green")
 
-# Exercise: plot multiframe di densità e interpolazione uno acacnto all'alto
-par(mfrow=c(1,2))
+  # Exercise: plot multiframe di densità e interpolazione uno acacnto all'alto
+  par(mfrow=c(1,2))
 
-plot(dT, main="Density of points")
-points(Tesippp,col="green")
+  plot(dT, main="Density of points")
+  points(Tesippp,col="green")
 
-plot(interpol, main="Estimate of species richness")
-points(Tesippp,col="green")
+  plot(interpol, main="Estimate of species richness")
+  points(Tesippp,col="green")
 
 
 
