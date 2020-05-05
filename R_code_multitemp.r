@@ -96,18 +96,54 @@ output <- data.frame(cover,before,after)
 output
 
 
-library(ggplot2)
-p1<-ggplot(output, aes(x=cover, y=before, color=cover)) + geom_bar(stat="identity", fill="white")
+# library(ggplot2)
+# p1<-ggplot(output, aes(x=cover, y=before, color=cover)) + geom_bar(stat="identity", fill="white")
 # 
-p2<-ggplot(output, aes(x=cover, y=after, color=cover)) + geom_bar(stat="identity", fill="white")
+# p2<-ggplot(output, aes(x=cover, y=after, color=cover)) + geom_bar(stat="identity", fill="white")
 
 # https://cran.r-project.org/web/packages/egg/vignettes/Ecosystem.html
+# install.packages("gridExtra")
+# library(gridExtra)
+
+# grid.arrange(p1, p2, nrow = 1) # this needs griExtra
+
+########## day 2
+setwd("~/lab/")
+# setwd("/Users/utente/lab") #mac
+# setwd("C:/lab/") # windows
+
+load("defor.RData")
+
+ls()
+
+par(mfrow=c(1,2))
+cl <- colorRampPalette(c('black','green'))(100) # 
+plot(d1c$map, col=cl)
+plot(d2c$map, col=cl)
+
+#install.packages("ggplot2")
+library(ggplot2)
+# histograms of the % cover before deforestation
+ggplot(output, aes(x=cover, y=before, color=cover)) + 
+geom_bar(stat="identity", fill="white")
+
+# Exercise: plot the histograms of the land cover after deforestation
+ggplot(output, aes(x=cover, y=after, color=cover)) + 
+geom_bar(stat="identity", fill="white")
+
 install.packages("gridExtra")
-library(gridExtra)
+library(gridExtra) # oppure: require(Extra)
 
-grid.arrange(p1, p2, nrow = 1) # this needs griExtra
+# grid.arrange(plot1, plot2, nrow = 1) # this needs griExtra
 
+grafico1 <- ggplot(output, aes(x=cover, y=before, color=cover)) + 
+geom_bar(stat="identity", fill="white")
 
+grafico2 <- ggplot(output, aes(x=cover, y=after, color=cover)) + 
+geom_bar(stat="identity", fill="white")
+
+# Exercise: use grid.arrange to plot the two graphs 
+grid.arrange(grafico1, grafico2, nrow = 1)
 
 
 
