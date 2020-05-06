@@ -119,7 +119,7 @@ ls()
 par(mfrow=c(1,2))
 cl <- colorRampPalette(c('black','green'))(100) # 
 plot(d1c$map, col=cl)
-plot(d2c$map, col=cl)
+plot(d2c$map, col=cl)+
 
 #install.packages("ggplot2")
 library(ggplot2)
@@ -137,11 +137,12 @@ library(gridExtra) # oppure: require(Extra)
 # grid.arrange(plot1, plot2, nrow = 1) # this needs griExtra
 
 grafico1 <- ggplot(output, aes(x=cover, y=before, color=cover)) + 
-geom_bar(stat="identity", fill="white")+
+geom_bar(stat="identity", fill="white"ggplot2
+        ) +
 ylim(0, 100)
 
 grafico2 <- ggplot(output, aes(x=cover, y=after, color=cover)) + 
-geom_bar(stat="identity", fill="white")+
+geom_bar(stat="identity", fill="white") +
 ylim(0, 100)
 
 # Exercise: use grid.arrange to plot the two graphs 
