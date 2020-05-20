@@ -55,10 +55,8 @@ plot(difsnow, col=cldiff)
 
 # prediction
 # go to IOL and downloand prediction.r into the folder snow
-source("prediction.r")
-
-plot(predicted.snow.2025.norm, col=cl)
-
+# source("prediction.r")
+# plot(predicted.snow.2025.norm, col=cl)
 # since the code needs time, you can ddownload predicted.snow.2025.norm.tif from iol in the Data
 
 predicted.snow.2025.norm <- raster("predicted.snow.2025.norm.tif")
