@@ -12,6 +12,7 @@
 # 8. R_code_multitemp_NO2.r	
 # 9. R_code_snow.r	
 # 10. R_code_patches.r	
+# 11. R_code_crop.r -  exam simulation
 
 #################################################################
 #################################################################
@@ -1043,24 +1044,54 @@ attach(output)
 ggplot(output, aes(x=time, y=npatches)) + geom_bar(stat="identity", fill="white")
 
 
+#################################################################
+#################################################################
+#################################################################
+
+### 11. R code crop - exam simulation
+
+library(raster)
+
+setwd("~/lab/snow/") # Linux
+# setwd("C:/lab/snow/") # Windows
+# setwd("/Users/nome_utente/Desktop/lab/snow/") # Mac
+
+# Exercise: upload the whole snow set
 
 
+rlist <- list.files(pattern="snow")
+rlist 
 
+#save raster into list
+#con lappy
+list_rast <- lapply(rlist, raster)
+snow.multitemp <- stack(list_rast)
 
+clb <- colorRampPalette(c('dark blue','blue','light blue'))(100) # 
+plot(snow.multitemp,col=clb)
 
+# zoom
+snow.multitemp
 
+plot(snow.multitemp$snow2010r, col=clb)
 
+extension <- c(6, 20, 35, 50)
+zoom(snow.multitemp$snow2010r, ext=extension)
 
+plot(snow.multitemp$snow2010r, col=clb)
+zoom(snow.multitemp$snow2010r, ext=drawExtent())
 
+# crop
+extension <- c(6, 20, 35, 50)
+snow2010r.italy <- crop(snow.multitemp$snow2010r, extension)
+plot(snow2010r.italy, col=clb)
 
+# Exercise: crop the Italy extent on the whole stack of snow layers
+snow.multitemp.italy <- crop(snow.multitemp, extension)
+plot(snow.multitemp.italy, col=clb, zlim=c(20,200))
 
-
-
-
-
-
-
-
+# boxplot
+boxplot(snow.multitemp.italy, horizontal=T,outline=F)
 
 
 
